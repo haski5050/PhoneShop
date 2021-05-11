@@ -16,9 +16,9 @@ class CreateBuyersTable extends Migration
         Schema::create('buyers', function (Blueprint $table) {
             $table->id();
             $table->string('pib',)->nullable(true);
-            $table->integer('age')->nullable(true);;
-            $table->string('phone_number',10)->nullable(true);;
-            $table->string('address')->nullable(true);;
+            $table->integer('age')->nullable(true);
+            $table->string('phone_number',10)->nullable(true);
+            $table->string('address')->nullable(true);
         });
     }
 
