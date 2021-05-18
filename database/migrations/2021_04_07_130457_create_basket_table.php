@@ -14,8 +14,7 @@ class CreateBasketTable extends Migration
     public function up()
     {
         Schema::create('basket', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')
-            ->unique('id');
+            $table->unsignedBigInteger('id');
             $table->unsignedBigInteger('product_id');
             $table->integer('count');
             $table->dateTime('add_at');

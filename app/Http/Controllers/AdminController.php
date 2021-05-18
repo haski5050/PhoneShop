@@ -32,6 +32,6 @@ class AdminController extends Controller
     }
 
     public function index(){
-        return redirect()->route('homePage');
+        return view('homeAdmin');
     }
 }
