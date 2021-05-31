@@ -26,10 +26,10 @@ Route::get('/power/{id}',[\App\Http\Controllers\PowerController::class, 'aboutPo
 Route::get('/memory/{id}',[\App\Http\Controllers\MemoryController::class, 'aboutMemory'])->name('aboutMemoryPage');
 Route::post('/add/basket/{id}',[\App\Http\Controllers\UserController::class, 'addToBasket'])->name('addToBasketSubmit');
 Route::get('/basket',[\App\Http\Controllers\UserController::class, 'basket'])->name('basketPage');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/delete/basket/{id}',[\App\Http\Controllers\UserController::class, 'deleteFromBasket'])->name('deleteFromBasketSubmit');
+Route::get('/phones/category/{id}',[\App\Http\Controllers\PhoneController::class, 'selectPhonesFromCategory'])->name('selectPhonesFromCategory');
+Route::post('/add/order',[\App\Http\Controllers\UserController::class, 'addOrder'])->name('addOrderSubmit');
+Route::get('/order',[\App\Http\Controllers\UserController::class, 'orderPage'])->name('orderPage');
 
 Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('adminIndex');
@@ -63,6 +63,12 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/delete/power/{id}',[\App\Http\Controllers\PowerController::class, 'deletePower'])->name('deletePowerSubmit');
     Route::get('/delete/memory/{id}',[\App\Http\Controllers\MemoryController::class, 'deleteMemory'])->name('deleteMemorySubmit');
     Route::post('/delete/category',[\App\Http\Controllers\PhoneController::class, 'deleteCategory'])->name('deleteCategorySubmit');
+    Route::get('/check/feedback',[\App\Http\Controllers\AdminController::class, 'feedback_correct'])->name('feedbackCheckPage');
+    Route::get('/delete/feedback/{id}',[\App\Http\Controllers\AdminController::class, 'deleteFeedback'])->name('deleteFeedbackSubmit');
+    Route::get('/update/feedback/{id}',[\App\Http\Controllers\AdminController::class, 'updateFeedback'])->name('updateFeedbackSubmit');
+    Route::post('/answer/feedback',[\App\Http\Controllers\AdminController::class, 'feedbackAnswer'])->name('feedbackAnswerSubmit');
+    Route::get('/orders',[\App\Http\Controllers\AdminController::class, 'ordersPage'])->name('ordersPage');
+    Route::post('/update/orders/{id}',[\App\Http\Controllers\AdminController::class, 'ordersUpdate'])->name('ordersUpdateSubmit');
 });
 Route::middleware('auth:web')->group(function (){
     Route::get('/about/user',[\App\Http\Controllers\UserController::class, 'aboutUser'])->name('aboutUserPage');
@@ -70,6 +76,7 @@ Route::middleware('auth:web')->group(function (){
     Route::get('/add/favorite/{id}',[\App\Http\Controllers\UserController::class, 'addFavorite'])->name('addFavorite');
     Route::get('/get/favorite',[\App\Http\Controllers\UserController::class, 'getFavorite'])->name('favoritePage');
     Route::get('/delete/favorite/{id}',[\App\Http\Controllers\UserController::class, 'deleteFavorite'])->name('deleteFavoriteSubmit');
+    Route::post('/add/feedback',[\App\Http\Controllers\UserController::class, 'addFeedback'])->name('addFeedbackSubmit');
 });
 
 

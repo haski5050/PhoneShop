@@ -11,6 +11,7 @@ class PhoneController extends Controller
 {
     public function returnPhones(){
         $phones = DB::select("SELECT *,phones.id AS cid FROM phones LEFT JOIN products ON products.id = phones.product_id ORDER BY phones.id DESC");
+        $categories = DB::select("SELECT * FROM phone_categories");
         $images = [];
         for($i = 0;$i<count($phones);$i++) {
             $directory = 'images/'.$phones[$i]->cid.'/';
@@ -19,7 +20,7 @@ class PhoneController extends Controller
                 $images[$phones[$i]->cid] = $img[0];
             }
         }
-        return view('home',['phones' => $phones, 'image'=>$images]);
+        return view('home',['phones' => $phones, 'image'=>$images, 'categories' => $categories]);
     }
     public function addPhonePage(){
         $category = DB::select("SELECT * FROM phone_categories");
@@ -75,7 +76,7 @@ class PhoneController extends Controller
             'Image2' => 'nullable',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('addPhonePage')
+            return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -152,7 +153,7 @@ class PhoneController extends Controller
             'Image2' => 'nullable',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('updatePhonePage')
+            return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -222,6 +223,47 @@ class PhoneController extends Controller
         $directory = 'images/'.$id.'/';
         $images = Storage::allFiles($directory);
         $category = DB::select("SELECT * FROM phone_categories WHERE id = ?",[$phone[0]->phone_category]);
-        return view('about.aboutPhone',['phone'=>$phone[0], 'image'=>$images, 'category'=>$category[0]]);
+        $feedback_count = DB::select("SELECT * FROM product_feedback WHERE product_id = ?",[$phone[0]->product_id]);
+        $feedbacks = DB::select("SELECT * FROM product_feedback WHERE product_id = ? AND message IS NOT NULL AND is_correct = true",[$phone[0]->product_id]);
+        $rat = DB::select('select avg(rating) as a from product_feedback where product_id=?', [$phone[0]->product_id]);
+        $feedback_answer = DB::select("SELECT * FROM feedback_answer");
+        if(count($rat) > 0){
+            $rat = round((float)$rat[0]->a,1) ;
+        }
+
+        $arr = ["1" => 0,"2" =>0,"3"=>0,"4"=>0,"5"=>0];
+        foreach ($feedback_count as $f){
+            switch ($f->rating){
+                case 1:$arr['1']++;break;
+                case 2:$arr['2']++;break;
+                case 3:$arr['3']++;break;
+                case 4:$arr['4']++;break;
+                case 5:$arr['5']++;break;
+
+            }
+        }
+        if(count($feedback_count)>0) {
+            $arr['1'] = round($arr['1'] * 100 / count($feedback_count),0);
+            $arr['2'] = round($arr['2'] * 100 / count($feedback_count),0);;
+            $arr['3'] = round($arr['3'] * 100 / count($feedback_count),0);;
+            $arr['4'] = round($arr['4'] * 100 / count($feedback_count),0);;
+            $arr['5'] = round($arr['5'] * 100 / count($feedback_count),0);;
+        }
+
+        return view('about.aboutPhone',['phone'=>$phone[0], 'image'=>$images, 'category'=>$category[0],
+            'feedback'=>$feedback_count ,'feedbacks'=>$feedbacks, 'data'=>$arr,'rating'=>$rat,'feedback_answer'=>$feedback_answer]);
+    }
+    public function selectPhonesFromCategory($id){
+        $phones = DB::select("SELECT *,phones.id AS cid FROM phones LEFT JOIN products ON products.id = phones.product_id
+            WHERE phones.phone_category = ? ORDER BY phones.id DESC",[$id]);
+        $images = [];
+        for($i = 0;$i<count($phones);$i++) {
+            $directory = 'images/'.$phones[$i]->cid.'/';
+            $img = Storage::allFiles($directory);
+            if (count($img) > 0) {
+                $images[$phones[$i]->cid] = $img[0];
+            }
+        }
+        return view('home',['phones' => $phones, 'image'=>$images]);
     }
 }

@@ -20,6 +20,7 @@ class CreateProductFeedbackTable extends Migration
             $table->integer('rating');
             $table->string('message');
             $table->dateTime('send_at');
+            $table->boolean('is_correct');
             $table->foreign('product_id')->references('id')->on('products')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

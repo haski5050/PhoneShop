@@ -118,4 +118,10 @@
                 <a class="btn btn-outline-success mt-1 p-1" style="opacity: 0; cursor: default">Переглянути звітність по продажу</a>
             </div>
     </div>
+        <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
+            <div class="card-header bg-transparent border-success">Відгуки</div>
+            <div class="card-body text-success text-center" >
+                <a href="{{route('feedbackCheckPage')}}" class="btn btn-outline-success mt-1 p-1">Підтвердити відгуки</a>
+                <a class="btn btn-outline-success mt-1 p-1" href="{{route('ordersPage')}}">Переглянути всі актуальні замовлення</a>
+            </div>
 @endsection

@@ -34,7 +34,7 @@ class ChargersController extends Controller
             'Image2' => 'nullable',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('addChargerPage')
+            return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -82,7 +82,7 @@ class ChargersController extends Controller
             'Image2' => 'nullable',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('updateChargerPage')
+            return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -128,6 +128,35 @@ class ChargersController extends Controller
         $charger = DB::select("SELECT *,chargers.id AS cid FROM chargers LEFT JOIN products ON products.id = chargers.product_id WHERE chargers.id=?",[$id]);
         $directory = 'images/chargers/'.$id.'/';
         $images = Storage::allFiles($directory);
-        return view('about.aboutCharger',['charger'=>$charger[0], 'image'=>$images]);
+        $feedback_count = DB::select("SELECT * FROM product_feedback WHERE product_id = ?",[$charger[0]->product_id]);
+        $feedbacks = DB::select("SELECT * FROM product_feedback WHERE product_id = ? AND message IS NOT NULL AND is_correct = true",[$charger[0]->product_id]);
+        $rat = DB::select('select avg(rating) as a from product_feedback where product_id=?', [$charger[0]->product_id]);
+        $feedback_answer = DB::select("SELECT * FROM feedback_answer");
+        if(count($rat) > 0){
+            $rat = round((float)$rat[0]->a,1) ;
+        }
+
+        $arr = ["1" => 0,"2" =>0,"3"=>0,"4"=>0,"5"=>0];
+        foreach ($feedback_count as $f){
+            switch ($f->rating){
+                case 1:$arr['1']++;break;
+                case 2:$arr['2']++;break;
+                case 3:$arr['3']++;break;
+                case 4:$arr['4']++;break;
+                case 5:$arr['5']++;break;
+
+            }
+        }
+        if(count($feedback_count)>0) {
+            $arr['1'] = round($arr['1'] * 100 / count($feedback_count),0);
+            $arr['2'] = round($arr['2'] * 100 / count($feedback_count),0);;
+            $arr['3'] = round($arr['3'] * 100 / count($feedback_count),0);;
+            $arr['4'] = round($arr['4'] * 100 / count($feedback_count),0);;
+            $arr['5'] = round($arr['5'] * 100 / count($feedback_count),0);;
+        }
+
+        return view('about.aboutCharger',['charger'=>$charger[0], 'image'=>$images,
+            'feedback'=>$feedback_count ,'feedbacks'=>$feedbacks, 'data'=>$arr,'rating'=>$rat,'feedback_answer'=>$feedback_answer]);
+
     }
 }

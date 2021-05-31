@@ -3,6 +3,14 @@
     Головна
 @endsection
 @section('content')
+    @isset($categories)
+        <div class="text-center">
+        @foreach($categories as $category)
+            <a href="{{route('selectPhonesFromCategory',[$category->id])}}" class="btn btn-outline-secondary m-2">{{$category->name}}</a>
+        @endforeach
+        </div>
+        <hr>
+    @endisset
     @foreach($phones as $el)
         <div class="card " style="width: 18rem; display: inline-block; margin: 20px;">
             @isset($image[$el->cid])
