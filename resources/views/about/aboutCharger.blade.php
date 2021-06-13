@@ -105,7 +105,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                @include('feedback_layout',array('some'=>'charger->product_id'))
+                @include('feedback_layout',array('some'=>$charger->product_id))
             </div>
         </div>
     </div>

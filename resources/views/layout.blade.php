@@ -10,7 +10,7 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-<header class="p-3 bg-dark text-white">
+<header class="p-3 bg-dark text-white noprint">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -20,8 +20,9 @@
                 <li><a href="{{route('basketPage')}}" class="nav-link px-2 text-white">Кошик</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Пошук..." aria-label="Search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{route('searchResultPage')}}" method="post">
+                @csrf
+                <input type="search" name="search" class="form-control form-control-dark" placeholder="Пошук..." aria-label="Search" required>
             </form>
 
             @auth('admin')
@@ -40,6 +41,7 @@
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                         <li><a class="dropdown-item" href="{{route('aboutUserPage')}}">Особистий кабінет</a></li>
+                        <li><a class="dropdown-item" href="{{route('getOrdersPage')}}">Мої замовлення</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">Вихід</a></li>

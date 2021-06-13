@@ -30,6 +30,7 @@ Route::get('/delete/basket/{id}',[\App\Http\Controllers\UserController::class, '
 Route::get('/phones/category/{id}',[\App\Http\Controllers\PhoneController::class, 'selectPhonesFromCategory'])->name('selectPhonesFromCategory');
 Route::post('/add/order',[\App\Http\Controllers\UserController::class, 'addOrder'])->name('addOrderSubmit');
 Route::get('/order',[\App\Http\Controllers\UserController::class, 'orderPage'])->name('orderPage');
+Route::post('/search',[\App\Http\Controllers\MainController::class, 'searchResult'])->name('searchResultPage');
 
 Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('adminIndex');
@@ -69,6 +70,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function(){
     Route::post('/answer/feedback',[\App\Http\Controllers\AdminController::class, 'feedbackAnswer'])->name('feedbackAnswerSubmit');
     Route::get('/orders',[\App\Http\Controllers\AdminController::class, 'ordersPage'])->name('ordersPage');
     Route::post('/update/orders/{id}',[\App\Http\Controllers\AdminController::class, 'ordersUpdate'])->name('ordersUpdateSubmit');
+    Route::get('/purchases/reports/{id}',[\App\Http\Controllers\AdminController::class, 'purchasesReport'])->name('purchasesReportPage');
+    Route::post('/purchases/date/{id}',[\App\Http\Controllers\AdminController::class, 'reportsDate'])->name('reportsDateSubmit');
 });
 Route::middleware('auth:web')->group(function (){
     Route::get('/about/user',[\App\Http\Controllers\UserController::class, 'aboutUser'])->name('aboutUserPage');
@@ -77,6 +80,7 @@ Route::middleware('auth:web')->group(function (){
     Route::get('/get/favorite',[\App\Http\Controllers\UserController::class, 'getFavorite'])->name('favoritePage');
     Route::get('/delete/favorite/{id}',[\App\Http\Controllers\UserController::class, 'deleteFavorite'])->name('deleteFavoriteSubmit');
     Route::post('/add/feedback',[\App\Http\Controllers\UserController::class, 'addFeedback'])->name('addFeedbackSubmit');
+    Route::get('/get/orders',[\App\Http\Controllers\UserController::class, 'getOrders'])->name('getOrdersPage');
 });
 
 

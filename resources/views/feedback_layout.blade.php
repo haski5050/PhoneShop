@@ -151,7 +151,7 @@
     <form class="mb-4" method="post" action="{{route('addFeedbackSubmit')}}">
         @csrf
         <input type="text" value="1" id="rating" name="inputRating" hidden>
-        <input type="number" value="{{$some}}" id="pid" name="pid" hidden>
+        <input type="text" value="{{$some}}" id="pid" name="pid" hidden>
         <div>
             <label for="">Оцінка</label><br>
             <span class="bi bi-star checked" id="star1" onclick="add(this,1)"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">

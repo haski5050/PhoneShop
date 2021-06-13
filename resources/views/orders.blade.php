@@ -20,6 +20,8 @@
                     <div id="collapseOne{{$b->id}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
                             <table class="table">
+                                <h6>Номер телефону: {{$b->phone_number}}</h6>
+                                <h6>Домашня адреса: {{$b->address}}</h6>
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>

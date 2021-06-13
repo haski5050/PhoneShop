@@ -232,8 +232,14 @@ class UserController extends Controller
                     break;
                 default: dd($request->input('check'));
             }
-            return redirect()->route('homePage')->withCookies((array)Cookie::queue(Cookie::forget('id')));
+            return redirect()->route('homePage',['ok'=>true])->withCookies((array)Cookie::queue(Cookie::forget('id')));
         }
+    }
+    public function getOrders(){
+        $buyer_id = DB::select("SELECT buyer_id FROM users WHERE id = ?",[auth()->user()->getAuthIdentifier()])[0]->buyer_id;
+        $actual = DB::select("SELECT *,purchases.id AS pid FROM purchases INNER JOIN basket ON purchases.basket_id = basket.id INNER JOIN products ON products.id = basket.product_id WHERE buyer_id = ? AND delivered=false",[$buyer_id]);
+        $history = DB::select("SELECT *,purchases.id AS pid FROM purchases INNER JOIN basket ON purchases.basket_id = basket.id INNER JOIN products ON products.id = basket.product_id WHERE buyer_id = ? AND delivered=true",[$buyer_id]);
+        return view('user_orders',['actual'=>$actual,'history'=>$history]);
     }
 
 }

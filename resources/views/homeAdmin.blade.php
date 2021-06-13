@@ -20,7 +20,7 @@
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg></a>
                 </div>
-                <a href="" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
+                <a href="{{route('purchasesReportPage',[1])}}" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
             </div>
         </div>
         <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
@@ -39,7 +39,7 @@
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg></a>
                 </div>
-                <a href="" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
+                <a href="{{route('purchasesReportPage',[2])}}" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
             </div>
         </div>
         <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
@@ -58,7 +58,7 @@
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg></a>
                 </div>
-                <a href="" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
+                <a href="{{route('purchasesReportPage',[3])}}" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
             </div>
         </div>
         <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
@@ -77,7 +77,7 @@
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg></a>
                 </div>
-                <a href="" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
+                <a href="{{route('purchasesReportPage',[4])}}" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
             </div>
         </div>
         <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
@@ -96,7 +96,7 @@
                             <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                         </svg></a>
                 </div>
-                <a href="" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
+                <a href="{{route('purchasesReportPage',[5])}}" class="btn btn-outline-success mt-1 p-1">Переглянути звітність по продажу</a>
             </div>
         </div>
         <div class="card border-success mb-3 m-1" style="max-width: 18rem; display: inline-block">
